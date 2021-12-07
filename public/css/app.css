@@ -12200,6 +12200,14 @@ body {
   .title {
     font-size: 20px;
   }
+
+  body {
+    padding: 0px;
+  }
+
+  .container {
+    padding: 0px;
+  }
 }
 .wrapper {
   background-color: white;
