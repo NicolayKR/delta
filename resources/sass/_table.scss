@@ -1,0 +1,38 @@
+.wrapper{
+    background-color: white;
+    border-radius: 15px;
+    .title{
+        font-weight: bold;
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .graph-wrapper{
+        padding: 15px;
+    }
+    .table-wrapper{
+        overflow: auto;
+        border-top: 1px solid #dee2e6;
+        //border-radius: 10px;
+        th,td{
+            padding: 12px;
+        }
+        tbody tr:hover{
+            background-color: #DEF7FE;
+        }
+        tbody tr.active{
+            background-color: #DEF7FE;
+        }
+        tr:last-child{
+            border-bottom: none !important;
+            th,td{
+                border-bottom: none !important;
+            }
+        }
+        .current_day{
+            background-color: #DEF7FE;
+        }
+        .table{
+            margin-bottom: 0px;
+        }
+    }
+}
