@@ -2244,6 +2244,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2255,7 +2270,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       data: [],
       datacollection: null,
       windowWidth: window.innerWidth,
-      params: 'full_sum'
+      params: 'full_sum',
+      flag: false,
+      error: false
     };
   },
   mounted: function mounted() {
@@ -2292,19 +2309,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                     _this2.data.push(curr_date);
                   });
-                  console.log(_this2.data);
+                  var overlay = $('#overlay');
+                  overlay.css('visibility', 'hidden');
+                  overlay.css('opacity', '0');
+                  _this2.flag = true;
                 });
 
               case 3:
-                _context.next = 8;
+                _context.next = 9;
                 break;
 
               case 5:
                 _context.prev = 5;
                 _context.t0 = _context["catch"](0);
+                _this2.error = true;
                 console.log('Ошибка');
 
-              case 8:
+              case 9:
               case "end":
                 return _context.stop();
             }
@@ -2327,15 +2348,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                _context2.next = 8;
+                _context2.next = 9;
                 break;
 
               case 5:
                 _context2.prev = 5;
                 _context2.t0 = _context2["catch"](0);
+                _this3.error = true;
                 console.log('Ошибка');
 
-              case 8:
+              case 9:
               case "end":
                 return _context2.stop();
             }
@@ -58666,302 +58688,366 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "wrapper" }, [
-    _c("h2", { staticClass: "title" }, [
-      _vm._v("Общая статистика за данную неделю"),
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "graph-wrapper mt-4 mb-4" },
-      [
-        _c("graph", {
-          attrs: {
-            chartData: _vm.datacollection,
-            windowWidth: _vm.windowWidth,
-          },
-        }),
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "table-wrapper" }, [
-      _c("table", { staticClass: "table" }, [
-        _c("thead", [
+  return _c("div", [
+    this.flag == true
+      ? _c("div", { staticClass: "wrapper" }, [
+          _c("h2", { staticClass: "title" }, [
+            _vm._v("Общая статистика за данную неделю"),
+          ]),
+          _vm._v(" "),
           _c(
-            "tr",
+            "div",
+            { staticClass: "graph-wrapper mt-4 mb-4" },
             [
-              _c("th", { attrs: { scope: "col" } }, [_vm._v("Показатель")]),
+              _c("graph", {
+                attrs: {
+                  chartData: _vm.datacollection,
+                  windowWidth: _vm.windowWidth,
+                },
+              }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-wrapper" }, [
+            _c("table", { staticClass: "table" }, [
+              _c("thead", [
+                _c(
+                  "tr",
+                  [
+                    _c("th", { attrs: { scope: "col" } }, [
+                      _vm._v("Показатель"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "th",
+                        {
+                          key: index,
+                          class: _vm.noEmpty(date.data, "class"),
+                          attrs: { scope: "col" },
+                        },
+                        [_vm._v(_vm._s(_vm.getDayName(String(date.date))))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+              ]),
               _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "th",
+              _c("tbody", [
+                _c(
+                  "tr",
                   {
-                    key: index,
-                    class: _vm.noEmpty(date.data, "class"),
-                    attrs: { scope: "col" },
+                    staticClass: "active",
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("full_sum")
+                      },
+                    },
                   },
-                  [_vm._v(_vm._s(_vm.getDayName(String(date.date))))]
-                )
-              }),
-            ],
-            2
-          ),
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c(
-            "tr",
-            {
-              staticClass: "active",
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("full_sum")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("Выручка, руб")]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(_vm.noEmpty(date.data, "full_sum")))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("payment_types_1")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [_vm._v("Наличные")]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(_vm.noEmpty(date.data, "payment_types_1")))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("payment_types_2")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Безналичный расчет"),
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Выручка, руб"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(_vm.noEmpty(date.data, "full_sum")))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("payment_types_1")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [_vm._v("Наличные")]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.noEmpty(date.data, "payment_types_1"))
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("payment_types_2")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Безналичный расчет"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.noEmpty(date.data, "payment_types_2"))
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("payment_types_3")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Кредитные карты"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [
+                          _vm._v(
+                            _vm._s(_vm.noEmpty(date.data, "payment_types_3"))
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("avg_rec")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Средний чек, руб"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.avg_rec))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("avg_guest")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Средний гость, руб"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.avg_guest))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("del_after")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Удаление из чека (после оплаты), руб"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.del_after))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("del_before")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Удаление из чека (до оплаты), руб"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.del_before))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("count_rec")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Количество чеков"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.count_rec))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "tr",
+                  {
+                    on: {
+                      click: function ($event) {
+                        return _vm.updateGraph("count_guest")
+                      },
+                    },
+                  },
+                  [
+                    _c("th", { attrs: { scope: "row" } }, [
+                      _vm._v("Количество гостей"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(this.data, function (date, index) {
+                      return _c(
+                        "td",
+                        { key: index, class: _vm.noEmpty(date.data, "class") },
+                        [_vm._v(_vm._s(date.data.count_guest))]
+                      )
+                    }),
+                  ],
+                  2
+                ),
               ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(_vm.noEmpty(date.data, "payment_types_2")))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("payment_types_3")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Кредитные карты"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(_vm.noEmpty(date.data, "payment_types_3")))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("avg_rec")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Средний чек, руб"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.avg_rec))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("avg_guest")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Средний гость, руб"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.avg_guest))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("del_after")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Удаление из чека (после оплаты), руб"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.del_after))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("del_before")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Удаление из чека (до оплаты), руб"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.del_before))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("count_rec")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Количество чеков"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.count_rec))]
-                )
-              }),
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "tr",
-            {
-              on: {
-                click: function ($event) {
-                  return _vm.updateGraph("count_guest")
-                },
-              },
-            },
-            [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v("Количество гостей"),
-              ]),
-              _vm._v(" "),
-              _vm._l(this.data, function (date, index) {
-                return _c(
-                  "td",
-                  { key: index, class: _vm.noEmpty(date.data, "class") },
-                  [_vm._v(_vm._s(date.data.count_guest))]
-                )
-              }),
-            ],
-            2
-          ),
-        ]),
-      ]),
+            ]),
+          ]),
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "overlay" } }, [
+      _c(
+        "div",
+        { staticClass: "popup" },
+        [
+          _vm.error
+            ? [
+                _c(
+                  "div",
+                  {
+                    staticClass: "fw-bold",
+                    staticStyle: { "margin-right": "10px" },
+                  },
+                  [_vm._v("Произошла ошибка")]
+                ),
+              ]
+            : [
+                _c(
+                  "div",
+                  {
+                    staticClass: "fw-bold",
+                    staticStyle: { "margin-right": "10px" },
+                  },
+                  [_vm._v("Мы пытаемся получить данные")]
+                ),
+                _vm._v(" "),
+                _vm._m(0),
+              ],
+        ],
+        2
+      ),
     ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "spinner-border text-info", attrs: { role: "status" } },
+      [_c("span", { staticClass: "visually-hidden" }, [_vm._v("Loading...")])]
+    )
+  },
+]
 render._withStripped = true
 
 
